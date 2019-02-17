@@ -90,7 +90,7 @@ static TKTwitter *sharedTwitter;
                              completionHandler:^(BOOL success) {
                                  //            失敗した場合、アプリケーションが存在していない。
                                  if (!success) {
-                                     completion(nil, nil, nil, [[NSError alloc] initWithDomain:TKLogInErrorDomain code:TKLoginErrorNoTwitterApp userInfo:@{NSLocalizedDescriptionKey: @"No Twitter App installed. Unable to perform Mobile SSO login flow."}]);
+                                     completion(nil, nil, nil, [[NSError alloc] initWithDomain:TKLogInErrorDomain code:TKLoginErrorNoTwitterApp userInfo:@{NSLocalizedDescriptionKey: @"No Twitter App installed. please install Twitter.app."}]);
                                  }
                              }];
 }

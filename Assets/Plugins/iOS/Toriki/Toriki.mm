@@ -1,7 +1,7 @@
 #import "TKTwitter.h"
 #import "Toriki.h"
 
-static const char * TKInternalGameObject = "TwitterGameObject";
+static const char * TKInternalGameObject = "TorikiGameObject";
 static const char * TKUnityAPIMethodLogInComplete = "LoginComplete";
 static const char * TKUnityAPIMethodLogInFailed = "LoginFailed";
 
