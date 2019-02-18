@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using Toriki.Settings;
 
-namespace TwitterKit.Internal
+namespace Toriki.Internal
 {
     internal class AndroidTwitterImpl : ITwitterImpl
     {
