@@ -4,6 +4,6 @@ Twitter KIt fOr Unity -> Toriki
 ## supported platforms
 
 * iOS
-* Android(in plan)
+* Android
 * WebGL(in plan)
 
