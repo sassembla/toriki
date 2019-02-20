@@ -40,20 +40,12 @@ static TwitterSettings()
 }
 ```
 
-### 2. Initialize Toriki
-
-```csharp
-using Toriki;
-
-TwitterAPI.Init();
-```
-
-### 3. Log in to Twitter
+### 2. Log in to Twitter
 
 get AccessToken & AccessTokenSecret from Twitter.
 
 ```csharp
-TwitterAPI.LogIn(
+TwitterAPI.InitWithLogin(
     (nickname, token, secret) =>
     {
     	// nickname, accesstoken, accesstokensecret is available. 
@@ -75,7 +67,7 @@ TwitterAPI.InitWithToken("ACCESS_TOKEN", "ACCESS_SECRET");
 ```
 
 
-### 4. Use Twitter API
+### 3. Use Twitter API
 
 after log in to Twitter, you can use Twitter APIs.
 
@@ -85,7 +77,7 @@ TwitterAPI.Post(
     "https://api.twitter.com/1.1/statuses/update.json",
     new SortedDictionary<string, string>
     {
-        {"status", "Love Toriki. "}
+        {"status", "#LoveToriki. "}
     },
     result =>
     {
