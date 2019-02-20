@@ -76,10 +76,6 @@ namespace Toriki.Internal
                 Uri.EscapeDataString(accessToken),
                 Uri.EscapeDataString(OauthVersion)
             );
-            /*
-                OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog", oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg", oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1318622958", oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", oauth_version="1.0"
-                OAuth oauth_consumer_key="v4zSquVjd4w", oauth_nonce="NjM2Njc1NTIzODYw", oauth_signature="%2FtUR2EOuU%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="153615", oauth_token="19T", oauth_version="1.0"
-             */
 
             // Debug.Log("authHeader:" + authHeader);
 

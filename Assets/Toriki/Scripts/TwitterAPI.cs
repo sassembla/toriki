@@ -83,45 +83,65 @@ namespace Toriki
         private static ITwitterImpl _twitter;
         private static TwitterAPI _component;
 
-        public static void AwakeInit()
-        {
-            var twitterGameObject = new GameObject("TorikiGameObject");
-            _component = twitterGameObject.AddComponent<TwitterAPI>();
 
-#if UNITY_EDITOR
-            _twitter = new EditorTwitterImpl();
-#elif UNITY_IOS
-            _twitter = new IOSTwitterImpl();
-#elif UNITY_ANDROID
-            _twitter = new AndroidTwitterImpl();
-#endif
+        private static void GenerateInstanceIfNeed()
+        {
+            Debug.Log("_component:" + _component);
+            if (_component == null)
+            {
+                var twitterGameObject = new GameObject("TorikiGameObject");
+                _component = twitterGameObject.AddComponent<TwitterAPI>();
+            }
         }
 
-        public static void Init()
+        private static void InitializeTwitterPlugin()
         {
+            // initialize plugin implementation if need.
             if (_twitter == null)
             {
-                TwitterAPI.AwakeInit();
+#if UNITY_EDITOR
+                _twitter = new EditorTwitterImpl();
+#elif UNITY_IOS
+                _twitter = new IOSTwitterImpl();
+#elif UNITY_ANDROID
+                _twitter = new AndroidTwitterImpl();
+#endif
+
                 _twitter.Init(TwitterSettings.ConsumerKey, TwitterSettings.ConsumerSecret);
             }
         }
 
+        /*
+            initialize with token.
+        */
         public static void InitWithToken(string accessToken, string accessSecret)
         {
-            Init();
+            InitializeTwitterPlugin();
 
-            // initialize twitter connector if accessToken and secret is not null.
+            // load component.
+            GenerateInstanceIfNeed();
+
+            // initialize twitter connector.
             _component._connector = new TwitterConnector(TwitterSettings.ConsumerKey, TwitterSettings.ConsumerSecret, accessToken, accessSecret);
             _state = TKState.APIReady;
         }
 
-        public static void LogIn(Action<string, string, string> successCallback, Action<int, string> failureCallback)
+        /*
+            initialize with login.
+         */
+        public static void InitWithLogin(Action<string, string, string> successCallback, Action<int, string> failureCallback)
         {
+            InitializeTwitterPlugin();
+
+            // load component.
+            GenerateInstanceIfNeed();
+
             _component.loginSuccessAction = (nickname, token, secret) =>
             {
                 // API Connectorの初期化
                 _component._connector = new TwitterConnector(TwitterSettings.ConsumerKey, TwitterSettings.ConsumerSecret, token, secret);
                 _state = TKState.APIReady;
+
                 successCallback(nickname, token, secret);
             };
             _component.loginFailureAction = failureCallback;
@@ -130,7 +150,7 @@ namespace Toriki
 
         public static void Get(string url, SortedDictionary<string, string> parameters, Action<string> onSucceeded, Action<int, APIError.Error[]> onFailed)
         {
-            if (_state == TKState.NotLoggedIn)
+            if (_state != TKState.APIReady)
             {
                 onFailed(0, new APIError.Error[]{new APIError.Error(){
                     code = 0,
@@ -138,6 +158,8 @@ namespace Toriki
                 }});
                 return;
             }
+
+            GenerateInstanceIfNeed();
 
             var cor = _component._connector.GenerateAccessCoroutine(
                 url,
@@ -159,7 +181,7 @@ namespace Toriki
 
         public static void Post(string url, SortedDictionary<string, string> parameters, Action<string> onSucceeded, Action<int, APIError.Error[]> onFailed)
         {
-            if (_state == TKState.NotLoggedIn)
+            if (_state != TKState.APIReady)
             {
                 onFailed(0, new APIError.Error[]{new APIError.Error(){
                     code = 0,
@@ -167,6 +189,8 @@ namespace Toriki
                 }});
                 return;
             }
+
+            GenerateInstanceIfNeed();
 
             var cor = _component._connector.GenerateAccessCoroutine(
                 url,

@@ -6,37 +6,24 @@ public class Login : MonoBehaviour
 {
     void Start()
     {
-        TwitterAPI.Init();
-        TwitterAPI.LogIn(
+        TwitterAPI.InitWithLogin(
             (nickname, token, secret) =>
             {
-                // show user info API example.
-                TwitterAPI.Get(
-                    "https://api.twitter.com/1.1/users/show.json",
-                    new SortedDictionary<string, string>
-                    {
-                        {"screen_name", "toru_inoue"}
-                    },
-                    result =>
-                    {
-                        Debug.Log("show result:" + result);
-                    },
-                    (code, errors) =>
-                    {
-                        Debug.Log("show code:" + code);
-                    }
-                );
+                // set access token to another scene API use.
+                APIAccess.ACCESS_TOKEN = token;
+                APIAccess.ACCESS_SECRET = secret;
 
                 // tweet API example.
                 TwitterAPI.Post(
                     "https://api.twitter.com/1.1/statuses/update.json",
                     new SortedDictionary<string, string>
                     {
-                        {"status", "Love Toriki. "}
+                        {"status", "#LoveToriki"}
                     },
                     result =>
                     {
                         Debug.Log("update result:" + result);
+                        UnityEngine.SceneManagement.SceneManager.LoadScene("_Sample/APIAccess/APIAccess");
                     },
                     (code, errors) =>
                     {
