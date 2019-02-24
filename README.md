@@ -13,6 +13,8 @@ Currently, Toriki requires Twitter application in supported platflorms.
 * Android
 * WebGL(under development.)
 
+with Unity 2018.x or later.
+
 
 ## installation
 Use UnityPackage in [releases](https://github.com/sassembla/toriki/releases).
