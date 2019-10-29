@@ -86,7 +86,6 @@ namespace Toriki
 
         private static void GenerateInstanceIfNeed()
         {
-            Debug.Log("_component:" + _component);
             if (_component == null)
             {
                 var twitterGameObject = new GameObject("TorikiGameObject");
