@@ -5,3 +5,6 @@ iOS/*
 Assembly-CSharp-Editor.csproj
 Assembly-CSharp.csproj
 obj/*
+.DS_Store
+Logs/Packages-Update.log
+toriki.sln
