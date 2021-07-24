@@ -6,5 +6,7 @@ Assembly-CSharp-Editor.csproj
 Assembly-CSharp.csproj
 obj/*
 .DS_Store
-Logs/Packages-Update.log
+Logs/*
 toriki.sln
+
+Assets/Resources.meta
